@@ -24,17 +24,17 @@ defmodule IntcodeProgram do
     end
   end
 
-  defp execute_instruction(1, program, current_position) do
+  defp execute_instruction(1 = _opcode, program, current_position) do
     arg1_pos = elem(program, current_position + 1)
     arg2_pos = elem(program, current_position + 2)
 
     {:ok, elem(program, arg1_pos) + elem(program, arg2_pos)}
   end
-  defp execute_instruction(2, program, current_position) do
+  defp execute_instruction(2 = _opcode, program, current_position) do
     arg1_pos = elem(program, current_position + 1)
     arg2_pos = elem(program, current_position + 2)
 
     {:ok, elem(program, arg1_pos) * elem(program, arg2_pos)}
   end
-  defp execute_instruction(99, _program, _current_position), do: :halt
+  defp execute_instruction(99 = _opcode, _program, _current_position), do: :halt
 end
