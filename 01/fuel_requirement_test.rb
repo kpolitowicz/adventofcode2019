@@ -6,9 +6,9 @@ class FuelRequirementTest < Minitest::Test
   def test_calculates_fuel_requirements
     fuel_required = FuelRequirement.new
 
-    assert_equal fuel_required.fuel_required_for_mass_of(12), 2
-    assert_equal fuel_required.fuel_required_for_mass_of(14), 2
-    assert_equal fuel_required.fuel_required_for_mass_of(1969), 654
-    assert_equal fuel_required.fuel_required_for_mass_of(100756), 33583
+    assert_equal fuel_required.for_mass(12), 2
+    assert_equal fuel_required.for_mass(14), 2
+    assert_equal fuel_required.for_mass(1969), 654
+    assert_equal fuel_required.for_mass(100756), 33583
   end
 end
