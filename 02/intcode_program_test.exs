@@ -10,6 +10,10 @@ defmodule IntcodeProgramTest do
     assert {1,2,3} = IntcodeProgram.read_from(string)
   end
 
+  test "runs the program with custom inputs" do
+    assert {2,3,0,6,99} = IntcodeProgram.run_with_inputs({2,9,9,3,99}, 3, 0)
+  end
+
   test "runs the program" do
     assert {2,0,0,0,99} = IntcodeProgram.run({1,0,0,0,99})
     assert {2,3,0,6,99} = IntcodeProgram.run({2,3,0,3,99})
