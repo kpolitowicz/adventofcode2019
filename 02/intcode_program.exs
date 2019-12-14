@@ -1,5 +1,7 @@
 defmodule IntcodeProgram do
-  def printable?(binary) do
-    Enum.all? binary, &(&1 >= ?\s && &1 <= ?´)
+  def read_from(string) do
+    String.split(string, ",")
+    |> Enum.map(&String.to_integer/1)
+    |> List.to_tuple
   end
 end

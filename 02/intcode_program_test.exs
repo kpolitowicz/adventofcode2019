@@ -9,8 +9,4 @@ defmodule IntcodeProgramTest do
     string = "1,2,3"
     assert {1,2,3} = IntcodeProgram.read_from(string)
   end
-
-  test "printable?" do
-    assert IntcodeProgram.printable?('abc') == true
-  end
 end
