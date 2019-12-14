@@ -15,6 +15,6 @@ class FuelRequirement
       all_fuel << fuel_mass
     end
 
-    all_fuel.sum
+    total(all_fuel)
   end
 end
