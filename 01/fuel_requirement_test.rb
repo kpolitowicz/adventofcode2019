@@ -17,4 +17,12 @@ class FuelRequirementTest < Minitest::Test
 
     assert_equal fuel_required.total([12, 14, 1969, 100756]), 102751
   end
+
+  def test_calculates_fuel_requirements_including_additional_fuel
+    fuel_required = FuelRequirement.new
+
+    assert_equal fuel_required.for_mass_incl_fuel(14), 2
+    assert_equal fuel_required.for_mass_incl_fuel(1969), 966
+    assert_equal fuel_required.for_mass_incl_fuel(100756), 50346
+  end
 end
