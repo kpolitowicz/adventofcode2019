@@ -14,10 +14,6 @@ defmodule IntcodeProgram do
     elem(program, 0)
   end
 
-  def encode_input(noun, verb) do
-    100 * noun + verb
-  end
-
   defp execute_next_instruction(program, instruction_pointer) do
     instruction = elem(program, instruction_pointer)
 
