@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require_relative 'fuel_requirement'
 
 class FuelRequirementTest < Minitest::Test
-  def test_calculates_fuel_requirements
+  def test_calculates_fuel_requirements_for_given_mass
     fuel_required = FuelRequirement.new
 
     assert_equal fuel_required.for_mass(12), 2
