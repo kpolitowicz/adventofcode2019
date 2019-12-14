@@ -20,4 +20,8 @@ defmodule IntcodeProgramTest do
   test "gives program output from address 0" do
     assert 1 = IntcodeProgram.output({1,0,0,0,99})
   end
+
+  test "encodes noun and verb" do
+    assert 1202 = IntcodeProgram.encode_input(12, 2)
+  end
 end
