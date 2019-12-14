@@ -1,6 +1,6 @@
 require_relative 'fuel_requirement'
 
-input_file = "#{__dir__}/part1_input.txt"
+input_file = "#{__dir__}/input.txt"
 
 fuel_required = FuelRequirement.new
 
