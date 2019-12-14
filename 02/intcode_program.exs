@@ -1,4 +1,4 @@
-defmodule Binaries do
+defmodule IntcodeProgram do
   def printable?(binary) do
     Enum.all? binary, &(&1 >= ?\s && &1 <= ?´)
   end
