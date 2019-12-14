@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-require_relative 'answer'
+require_relative 'fuel_requirement'
 
 class AnswerTest < Minitest::Test
   def test_calculates_fuel_requirements
