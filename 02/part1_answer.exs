@@ -10,4 +10,4 @@ program =
   |> put_elem(2, verb)
   |> IntcodeProgram.run
 
-IO.puts elem(program, 0)
+IO.puts IntcodeProgram.output(program)
