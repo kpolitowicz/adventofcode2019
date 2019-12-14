@@ -6,8 +6,6 @@ noun = 12
 verb = 2
 program =
   IntcodeProgram.read_from(program_str)
-  |> put_elem(1, noun)
-  |> put_elem(2, verb)
-  |> IntcodeProgram.run
+  |> IntcodeProgram.run_with_inputs(noun, verb)
 
 IO.puts IntcodeProgram.output(program)
