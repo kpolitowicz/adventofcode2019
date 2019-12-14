@@ -8,7 +8,7 @@ defmodule IntcodeInputFinder do
     |> Enum.map(fn {noun, verb} = inputs ->
       {inputs, IntcodeProgram.run_with_inputs(program, noun, verb)}
     end)
-    |> Enum.find(fn {inputs, finished_program} ->
+    |> Enum.find(fn {_inputs, finished_program} ->
       IntcodeProgram.output(finished_program) == desired_output
     end)
     |> elem(0)
