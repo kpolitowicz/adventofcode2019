@@ -16,4 +16,8 @@ defmodule IntcodeProgramTest do
     assert {2,4,4,5,99,9801} = IntcodeProgram.run({2,4,4,5,99,0})
     assert {30,1,1,4,2,5,6,0,99} = IntcodeProgram.run({1,1,1,4,99,5,6,0,99})
   end
+
+  test "gives program output from address 0" do
+    assert 1 = IntcodeProgram.output({1,0,0,0,99})
+  end
 end

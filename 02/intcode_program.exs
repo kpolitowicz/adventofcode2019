@@ -10,6 +10,10 @@ defmodule IntcodeProgram do
     execute_next_instruction(program, 0)
   end
 
+  def output(program) do
+    elem(program, 0)
+  end
+
   defp execute_next_instruction(program, instruction_pointer) do
     instruction = elem(program, instruction_pointer)
 
