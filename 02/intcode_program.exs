@@ -1,6 +1,7 @@
 defmodule IntcodeProgram do
   def read_from(string) do
     String.split(string, ",")
+    |> Enum.map(&String.trim/1)
     |> Enum.map(&String.to_integer/1)
     |> List.to_tuple
   end

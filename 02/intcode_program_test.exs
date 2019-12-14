@@ -6,7 +6,7 @@ defmodule IntcodeProgramTest do
   use ExUnit.Case
 
   test "converts comma-separated string into a tuple" do
-    string = "1,2,3"
+    string = "1,2,3\n"
     assert {1,2,3} = IntcodeProgram.read_from(string)
   end
 
