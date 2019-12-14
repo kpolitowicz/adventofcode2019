@@ -6,7 +6,7 @@ defmodule IntcodeInputFinderTest do
   use ExUnit.Case
 
   test "finds the program inputs that give desired output" do
-    assert {0,0} = IntcodeInputFinder.find_inputs_for(1, {1,0,0,0,99}, 0..1, 2..3)
+    assert {4,2} = IntcodeInputFinder.find_inputs_for(101, {1,0,0,0,99}, 0..4, 0..4)
   end
 
   test "encodes noun and verb" do
