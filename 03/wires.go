@@ -67,7 +67,7 @@ func ManhattanDistance(p point) int {
 
 func parseWireDirectiveIntoDef(wireDir string) wireDef {
 	dir := wireDir[0]
-	steps, _ := strconv.Atoi(string(wireDir[1]))
+	steps, _ := strconv.Atoi(string(wireDir[1:len(wireDir)]))
 	return wireDef{dir, steps}
 }
 

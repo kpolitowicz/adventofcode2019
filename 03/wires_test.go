@@ -15,8 +15,8 @@ func TestParseInputString(t *testing.T) {
 }
 
 func TestConvertToWireDef(t *testing.T) {
-	got := ConvertToWireDef([]string{"R8", "U5"})
-	want := []wireDef{wireDef{'R', 8}, wireDef{'U', 5}}
+	got := ConvertToWireDef([]string{"R8", "U555"})
+	want := []wireDef{wireDef{'R', 8}, wireDef{'U', 555}}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
