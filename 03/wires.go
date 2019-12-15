@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -47,8 +48,20 @@ func FindCommonPoints(wire1, wire2 []point) (res []point) {
 	return
 }
 
+func FindClosestPoint(points []point) (res point) {
+	shortestDist := 1_000_000_000
+	for _, p := range points {
+		dist := ManhattanDistance(p)
+		if dist < shortestDist {
+			shortestDist = dist
+			res = p
+		}
+	}
+	return
+}
+
 func ManhattanDistance(p point) int {
-	return p.x + p.y
+	return int(math.Abs(float64(p.x))) + int(math.Abs(float64(p.y)))
 }
 
 func parseWireDirectiveIntoDef(wireDir string) wireDef {

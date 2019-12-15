@@ -65,10 +65,30 @@ func TestFindCommonPoints(t *testing.T) {
 	}
 }
 
+func TestFindClosestPoint(t *testing.T) {
+	points := []point{
+		point{6, 5},
+		point{3, 3},
+	}
+	got := FindClosestPoint(points)
+	want := point{3, 3}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestManhattanDistance(t *testing.T) {
 	got := ManhattanDistance(point{6, 5})
 	want := 11
-	if !reflect.DeepEqual(got, want) {
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+func TestManhattanDistanceNegativeCoords(t *testing.T) {
+	got := ManhattanDistance(point{-6, -5})
+	want := 11
+	if got != want {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
