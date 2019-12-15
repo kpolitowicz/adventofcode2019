@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math"
 	"strconv"
 	"strings"
@@ -113,5 +114,12 @@ func moveDown(steps int, startPos point) (res []point) {
 }
 
 func main() {
-	fmt.Println("Hello,", strings.Split("R8,U5", ""))
+	dat, _ := ioutil.ReadFile("input.txt")
+	ary := strings.Split(string(dat), "\n")
+
+	wire1 := ParseInputString(ary[0])
+	wire2 := ParseInputString(ary[1])
+
+	fmt.Println(wire1)
+	fmt.Println(wire2)
 }
