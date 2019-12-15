@@ -15,6 +15,10 @@ type point struct {
 	x, y int
 }
 
+type pointWithSignalDist struct {
+	x, y, signalDist int
+}
+
 func CalcManhattanDistance(wire1Str, wire2Str string) int {
 	wire1 := ConvertToWireDef(ParseInputString(wire1Str))
 	wire2 := ConvertToWireDef(ParseInputString(wire2Str))
@@ -49,18 +53,18 @@ func GetWirePoints(wireDefs []wireDef) (res []point) {
 }
 
 // TODO: implement wire args as set with intersection
-func FindCommonPoints(wire1, wire2 []point) (res []point) {
-	for _, wire1_point := range wire1 {
-		for _, wire2_point := range wire2 {
+func FindCommonPoints(wire1, wire2 []point) (res []pointWithSignalDist) {
+	for idx1, wire1_point := range wire1 {
+		for idx2, wire2_point := range wire2 {
 			if wire1_point == wire2_point {
-				res = append(res, wire1_point)
+				res = append(res, pointWithSignalDist{wire1_point.x, wire1_point.y, idx1 + idx2 + 2})
 			}
 		}
 	}
 	return
 }
 
-func FindClosestPoint(points []point) (res point) {
+func FindClosestPoint(points []pointWithSignalDist) (res pointWithSignalDist) {
 	shortestDist := 1_000_000_000
 	for _, p := range points {
 		dist := ManhattanDistance(p)
@@ -72,7 +76,7 @@ func FindClosestPoint(points []point) (res point) {
 	return
 }
 
-func ManhattanDistance(p point) int {
+func ManhattanDistance(p pointWithSignalDist) int {
 	return int(math.Abs(float64(p.x))) + int(math.Abs(float64(p.y)))
 }
 

@@ -79,9 +79,9 @@ func TestFindCommonPoints(t *testing.T) {
 		wireDef{'L', 4},
 	})
 	got := FindCommonPoints(wire1, wire2)
-	want := []point{
-		point{6, 5},
-		point{3, 3},
+	want := []pointWithSignalDist{
+		pointWithSignalDist{6, 5, 30},
+		pointWithSignalDist{3, 3, 40},
 	}
 
 	if !reflect.DeepEqual(got, want) {
@@ -90,12 +90,12 @@ func TestFindCommonPoints(t *testing.T) {
 }
 
 func TestFindClosestPoint(t *testing.T) {
-	points := []point{
-		point{6, 5},
-		point{3, 3},
+	points := []pointWithSignalDist{
+		pointWithSignalDist{6, 5, 0},
+		pointWithSignalDist{3, 3, 0},
 	}
 	got := FindClosestPoint(points)
-	want := point{3, 3}
+	want := pointWithSignalDist{3, 3, 0}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
@@ -103,14 +103,14 @@ func TestFindClosestPoint(t *testing.T) {
 }
 
 func TestManhattanDistance(t *testing.T) {
-	got := ManhattanDistance(point{6, 5})
+	got := ManhattanDistance(pointWithSignalDist{6, 5, 0})
 	want := 11
 	if got != want {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
 func TestManhattanDistanceNegativeCoords(t *testing.T) {
-	got := ManhattanDistance(point{-6, -5})
+	got := ManhattanDistance(pointWithSignalDist{-6, -5, 0})
 	want := 11
 	if got != want {
 		t.Errorf("got %v want %v", got, want)
