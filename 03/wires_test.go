@@ -89,12 +89,12 @@ func TestFindCommonPoints(t *testing.T) {
 	}
 }
 
-func TestFindClosestPoint(t *testing.T) {
+func TestFindClosestPointByManhattanDist(t *testing.T) {
 	points := []pointWithSignalDist{
 		pointWithSignalDist{6, 5, 0},
 		pointWithSignalDist{3, 3, 0},
 	}
-	got := FindClosestPoint(points)
+	got := FindClosestPointByManhattanDist(points)
 	want := pointWithSignalDist{3, 3, 0}
 
 	if !reflect.DeepEqual(got, want) {

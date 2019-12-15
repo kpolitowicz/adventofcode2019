@@ -27,7 +27,7 @@ func CalcManhattanDistance(wire1Str, wire2Str string) int {
 	wire2_points := GetWirePoints(wire2)
 
 	intersections := FindCommonPoints(wire1_points, wire2_points)
-	closest_intersection := FindClosestPoint(intersections)
+	closest_intersection := FindClosestPointByManhattanDist(intersections)
 
 	return ManhattanDistance(closest_intersection)
 }
@@ -64,7 +64,7 @@ func FindCommonPoints(wire1, wire2 []point) (res []pointWithSignalDist) {
 	return
 }
 
-func FindClosestPoint(points []pointWithSignalDist) (res pointWithSignalDist) {
+func FindClosestPointByManhattanDist(points []pointWithSignalDist) (res pointWithSignalDist) {
 	shortestDist := 1_000_000_000
 	for _, p := range points {
 		dist := ManhattanDistance(p)
