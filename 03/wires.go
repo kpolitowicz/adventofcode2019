@@ -32,6 +32,19 @@ func CalcManhattanDistance(wire1Str, wire2Str string) int {
 	return ManhattanDistance(closest_intersection)
 }
 
+func CalcSignalDistance(wire1Str, wire2Str string) int {
+	wire1 := ConvertToWireDef(ParseInputString(wire1Str))
+	wire2 := ConvertToWireDef(ParseInputString(wire2Str))
+
+	wire1_points := GetWirePoints(wire1)
+	wire2_points := GetWirePoints(wire2)
+
+	intersections := FindCommonPoints(wire1_points, wire2_points)
+	closest_intersection := FindClosestPointBySignalDist(intersections)
+
+	return closest_intersection.signalDist
+}
+
 func ParseInputString(inputStr string) []string {
 	return strings.Split(inputStr, ",")
 }

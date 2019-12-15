@@ -29,6 +29,30 @@ func TestCalcManhattanDistanceExample2(t *testing.T) {
 	}
 }
 
+func TestCalcSignalDistanceExample1(t *testing.T) {
+	wire1_str := "R75,D30,R83,U83,L12,D49,R71,U7,L72"
+	wire2_str := "U62,R66,U55,R34,D71,R55,D58,R83"
+
+	got := CalcSignalDistance(wire1_str, wire2_str)
+	want := 610
+
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestCalcSignalDistanceExample2(t *testing.T) {
+	wire1_str := "R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51"
+	wire2_str := "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7"
+
+	got := CalcSignalDistance(wire1_str, wire2_str)
+	want := 410
+
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestParseInputString(t *testing.T) {
 	got := ParseInputString("R8,U5,L5,D3")
 	want := []string{"R8", "U5", "L5", "D3"}
