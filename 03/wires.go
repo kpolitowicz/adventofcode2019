@@ -76,6 +76,17 @@ func FindClosestPointByManhattanDist(points []pointWithSignalDist) (res pointWit
 	return
 }
 
+func FindClosestPointBySignalDist(points []pointWithSignalDist) (res pointWithSignalDist) {
+	shortestDist := 1_000_000_000
+	for _, p := range points {
+		if p.signalDist < shortestDist {
+			shortestDist = p.signalDist
+			res = p
+		}
+	}
+	return
+}
+
 func ManhattanDistance(p pointWithSignalDist) int {
 	return int(math.Abs(float64(p.x))) + int(math.Abs(float64(p.y)))
 }

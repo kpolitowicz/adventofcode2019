@@ -101,6 +101,18 @@ func TestFindClosestPointByManhattanDist(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+func TestFindClosestPointByiSignalDist(t *testing.T) {
+	points := []pointWithSignalDist{
+		pointWithSignalDist{6, 5, 30},
+		pointWithSignalDist{3, 3, 40},
+	}
+	got := FindClosestPointBySignalDist(points)
+	want := pointWithSignalDist{6, 5, 30}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
 
 func TestManhattanDistance(t *testing.T) {
 	got := ManhattanDistance(pointWithSignalDist{6, 5, 0})
