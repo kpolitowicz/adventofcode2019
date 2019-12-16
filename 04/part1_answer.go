@@ -1,14 +1,10 @@
 package main
 
-// import (
-// 	"fmt"
-// 	"io/ioutil"
-// 	"strings"
-// )
+import (
+	"fmt"
+)
 
-// func main() {
-// 	dat, _ := ioutil.ReadFile("input.txt")
-// 	ary := strings.Split(string(dat), "\n")
-
-// 	fmt.Println(CalcManhattanDistance(ary[0], ary[1]))
-// }
+func main() {
+	allValidPasswords := ListValidPasswordsInRange(245182, 790572)
+	fmt.Println(len(allValidPasswords))
+}
