@@ -18,6 +18,7 @@ func CheckPasswordValid(password string) bool {
 	}
 
 	doubleFound := false
+	matchingDigits := 1
 	lastChar := byte('0')
 
 	for _, char := range password {
@@ -25,10 +26,16 @@ func CheckPasswordValid(password string) bool {
 			return false
 		}
 		if byte(char) == lastChar {
-			doubleFound = true
+			matchingDigits++
+		}
+		if byte(char) > lastChar {
+			if matchingDigits == 2 {
+				doubleFound = true
+			}
+			matchingDigits = 1
 		}
 		lastChar = byte(char)
 	}
 
-	return doubleFound
+	return doubleFound || matchingDigits == 2
 }

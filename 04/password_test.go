@@ -6,11 +6,10 @@ import (
 )
 
 func TestListValidPasswordsInRange(t *testing.T) {
-	got := ListValidPasswordsInRange(111119, 111123)
+	got := ListValidPasswordsInRange(111119, 111133)
 	want := []int{
-		111119,
 		111122,
-		111123,
+		111133,
 	}
 
 	if !reflect.DeepEqual(got, want) {
@@ -21,8 +20,8 @@ func TestListValidPasswordsInRange(t *testing.T) {
 func TestCheckPasswordValid(t *testing.T) {
 	passwords := []string{
 		"122345",
-		"111123",
-		"111111",
+		"112233",
+		"111122",
 	}
 
 	for _, password := range passwords {
@@ -39,6 +38,9 @@ func TestCheckPasswordInvalid(t *testing.T) {
 		"123789",
 		"111",
 		"1111111",
+		"111123",
+		"111111",
+		"123444",
 	}
 
 	for _, password := range passwords {
