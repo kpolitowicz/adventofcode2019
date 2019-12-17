@@ -14,10 +14,8 @@ defmodule IntcodeProgram do
     instruction = elem(program, instruction_pointer)
 
     case execute_instruction(instruction, program, instruction_pointer) do
-      {:ok, result} ->
-        res_pos = elem(program, instruction_pointer + 3)
-        program = put_elem(program, res_pos, result)
-        execute_next_instruction(program, input, output, instruction_pointer + 4)
+      {:ok, program, instruction_pointer} ->
+        execute_next_instruction(program, input, output, instruction_pointer)
 
       :halt ->
         {program, output}
@@ -28,13 +26,19 @@ defmodule IntcodeProgram do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
-    {:ok, elem(program, arg1_pos) + elem(program, arg2_pos)}
+    res_pos = elem(program, instruction_pointer + 3)
+    program = put_elem(program, res_pos, elem(program, arg1_pos) + elem(program, arg2_pos))
+
+    {:ok, program, instruction_pointer + 4}
   end
   defp execute_instruction(2 = _opcode, program, instruction_pointer) do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
-    {:ok, elem(program, arg1_pos) * elem(program, arg2_pos)}
+    res_pos = elem(program, instruction_pointer + 3)
+    program = put_elem(program, res_pos, elem(program, arg1_pos) * elem(program, arg2_pos))
+
+    {:ok, program, instruction_pointer + 4}
   end
   defp execute_instruction(99 = _opcode, _program, _instruction_pointer), do: :halt
 end
