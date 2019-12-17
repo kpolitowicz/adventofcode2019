@@ -24,7 +24,7 @@ defmodule IntcodeProgram do
     end
   end
 
-  defp execute_instruction({1 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
+  defp execute_instruction(%Opcode{opcode: 1}, program, input, output, instruction_pointer) do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -33,7 +33,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction({2 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
+  defp execute_instruction(%Opcode{opcode: 2}, program, input, output, instruction_pointer) do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -42,7 +42,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction({3 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
+  defp execute_instruction(%Opcode{opcode: 3}, program, input, output, instruction_pointer) do
     res_pos = elem(program, instruction_pointer + 1)
 
     [value | input] = input
@@ -50,11 +50,11 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction({4 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
+  defp execute_instruction(%Opcode{opcode: 4}, program, input, output, instruction_pointer) do
     arg_pos = elem(program, instruction_pointer + 1)
     output = [elem(program, arg_pos) | output]
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction({99 = _opcode, _, _, _}, _program, _input, _output, _instruction_pointer), do: :halt
+  defp execute_instruction(%Opcode{opcode: 99}, _program, _input, _output, _instruction_pointer), do: :halt
 end

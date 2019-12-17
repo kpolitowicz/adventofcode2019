@@ -6,7 +6,13 @@ defmodule OpcodeTest do
   use ExUnit.Case
 
   test "converts integer opcode to tuple with modes" do
-    assert {2, 0, 1, 0} = Opcode.read(1002)
+    expected = %Opcode{
+      opcode: 2,
+      arg1_mode: 0,
+      arg2_mode: 1,
+      arg3_mode: 0
+    }
+    assert ^expected = Opcode.read(1002)
   end
 end
 
