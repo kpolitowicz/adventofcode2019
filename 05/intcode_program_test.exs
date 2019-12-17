@@ -16,10 +16,12 @@ defmodule IntcodeProgramTest do
     assert {{2,4,4,5,99,9801}, []} = IntcodeProgram.run({2,4,4,5,99,0})
     assert {{30,1,1,4,2,5,6,0,99}, []} = IntcodeProgram.run({1,1,1,4,99,5,6,0,99})
 
-    # new opcodes: 3 and 4
-    assert {{42,0,4,0,99}, [42]} = IntcodeProgram.run({3,0,4,0,99}, [42])
-
     # param modes
     assert {{1002,4,3,4,99}, []} = IntcodeProgram.run({1002,4,3,4,33})
+  end
+
+  test "computes output" do
+    # new opcodes: 3 and 4
+    assert [42] = IntcodeProgram.output({3,0,4,0,99}, [42])
   end
 end

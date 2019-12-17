@@ -8,6 +8,12 @@ defmodule IntcodeProgram do
     |> List.to_tuple
   end
 
+  def output(program, input) do
+    {_new_program, output} = run(program, input)
+
+    output
+  end
+
   def run(program, input \\ []) do
     execute_next_instruction(program, input, [], 0)
   end
