@@ -6,21 +6,21 @@ defmodule IntcodeProgram do
     |> List.to_tuple
   end
 
-  def run(program) do
-    execute_next_instruction(program, 0)
+  def run(program, input \\ []) do
+    execute_next_instruction(program, input, [], 0)
   end
 
-  defp execute_next_instruction(program, instruction_pointer) do
+  defp execute_next_instruction(program, input, output, instruction_pointer) do
     instruction = elem(program, instruction_pointer)
 
     case execute_instruction(instruction, program, instruction_pointer) do
       {:ok, result} ->
         res_pos = elem(program, instruction_pointer + 3)
         program = put_elem(program, res_pos, result)
-        execute_next_instruction(program, instruction_pointer + 4)
+        execute_next_instruction(program, input, output, instruction_pointer + 4)
 
       :halt ->
-        program
+        {program, output}
     end
   end
 
