@@ -40,5 +40,19 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
+  defp execute_instruction(3 = _opcode, program, input, output, instruction_pointer) do
+    res_pos = elem(program, instruction_pointer + 1)
+
+    [value | input] = input
+    program = put_elem(program, res_pos, value)
+
+    {:ok, program, input, output, instruction_pointer + 2}
+  end
+  defp execute_instruction(4 = _opcode, program, input, output, instruction_pointer) do
+    arg_pos = elem(program, instruction_pointer + 1)
+    output = [elem(program, arg_pos) | output]
+
+    {:ok, program, input, output, instruction_pointer + 2}
+  end
   defp execute_instruction(99 = _opcode, _program, _input, _output, _instruction_pointer), do: :halt
 end

@@ -17,6 +17,6 @@ defmodule IntcodeProgramTest do
     assert {{30,1,1,4,2,5,6,0,99}, []} = IntcodeProgram.run({1,1,1,4,99,5,6,0,99})
 
     # new opcodes: 3 and 4
-    # assert {{3,0,4,0,99}, [42]} = IntcodeProgram.run({3,0,4,0,99}, [42])
+    assert {{42,0,4,0,99}, [42]} = IntcodeProgram.run({3,0,4,0,99}, [42])
   end
 end
