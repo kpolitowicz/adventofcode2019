@@ -1,3 +1,5 @@
+Code.require_file "opcode.exs", __DIR__
+
 defmodule IntcodeProgram do
   def read_from(string) do
     String.split(string, ",")
@@ -11,7 +13,7 @@ defmodule IntcodeProgram do
   end
 
   defp execute_next_instruction(program, input, output, instruction_pointer) do
-    instruction = elem(program, instruction_pointer)
+    instruction = Opcode.read(elem(program, instruction_pointer))
 
     case execute_instruction(instruction, program, input, output, instruction_pointer) do
       {:ok, program, input, output, instruction_pointer} ->
@@ -22,8 +24,7 @@ defmodule IntcodeProgram do
     end
   end
 
-  defp execute_instruction(opcode, program, input, output, instruction_pointer)
-  when rem(opcode, 10) == 1 do
+  defp execute_instruction({1 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -32,8 +33,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction(opcode, program, input, output, instruction_pointer)
-  when rem(opcode, 10) == 2 do
+  defp execute_instruction({2 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -42,8 +42,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction(opcode, program, input, output, instruction_pointer)
-  when rem(opcode, 10) == 3 do
+  defp execute_instruction({3 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
     res_pos = elem(program, instruction_pointer + 1)
 
     [value | input] = input
@@ -51,12 +50,11 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction(opcode, program, input, output, instruction_pointer)
-  when rem(opcode, 10) == 4 do
+  defp execute_instruction({4 = _opcode, _, _, _}, program, input, output, instruction_pointer) do
     arg_pos = elem(program, instruction_pointer + 1)
     output = [elem(program, arg_pos) | output]
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction(99 = _opcode, _program, _input, _output, _instruction_pointer), do: :halt
+  defp execute_instruction({99 = _opcode, _, _, _}, _program, _input, _output, _instruction_pointer), do: :halt
 end
