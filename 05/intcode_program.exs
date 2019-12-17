@@ -6,19 +6,8 @@ defmodule IntcodeProgram do
     |> List.to_tuple
   end
 
-  def run_with_inputs(program, noun, verb) do
-    program
-    |> put_elem(1, noun)
-    |> put_elem(2, verb)
-    |> IntcodeProgram.run
-  end
-
   def run(program) do
     execute_next_instruction(program, 0)
-  end
-
-  def output(program) do
-    elem(program, 0)
   end
 
   defp execute_next_instruction(program, instruction_pointer) do
