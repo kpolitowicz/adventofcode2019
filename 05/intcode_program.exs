@@ -22,7 +22,8 @@ defmodule IntcodeProgram do
     end
   end
 
-  defp execute_instruction(1 = _opcode, program, input, output, instruction_pointer) do
+  defp execute_instruction(opcode, program, input, output, instruction_pointer)
+  when rem(opcode, 10) == 1 do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -31,7 +32,8 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction(2 = _opcode, program, input, output, instruction_pointer) do
+  defp execute_instruction(opcode, program, input, output, instruction_pointer)
+  when rem(opcode, 10) == 2 do
     arg1_pos = elem(program, instruction_pointer + 1)
     arg2_pos = elem(program, instruction_pointer + 2)
 
@@ -40,7 +42,8 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction(3 = _opcode, program, input, output, instruction_pointer) do
+  defp execute_instruction(opcode, program, input, output, instruction_pointer)
+  when rem(opcode, 10) == 3 do
     res_pos = elem(program, instruction_pointer + 1)
 
     [value | input] = input
@@ -48,7 +51,8 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction(4 = _opcode, program, input, output, instruction_pointer) do
+  defp execute_instruction(opcode, program, input, output, instruction_pointer)
+  when rem(opcode, 10) == 4 do
     arg_pos = elem(program, instruction_pointer + 1)
     output = [elem(program, arg_pos) | output]
 
