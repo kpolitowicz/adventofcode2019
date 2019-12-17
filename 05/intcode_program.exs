@@ -24,21 +24,21 @@ defmodule IntcodeProgram do
     end
   end
 
-  defp execute_instruction(%Opcode{opcode: 1}, program, input, output, instruction_pointer) do
-    arg1_pos = elem(program, instruction_pointer + 1)
-    arg2_pos = elem(program, instruction_pointer + 2)
+  defp execute_instruction(%Opcode{opcode: 1} = opcode, program, input, output, instruction_pointer) do
+    arg1 = read_arg1(program, instruction_pointer, opcode)
+    arg2 = read_arg2(program, instruction_pointer, opcode)
 
     res_pos = elem(program, instruction_pointer + 3)
-    program = put_elem(program, res_pos, elem(program, arg1_pos) + elem(program, arg2_pos))
+    program = put_elem(program, res_pos, arg1 + arg2)
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
-  defp execute_instruction(%Opcode{opcode: 2}, program, input, output, instruction_pointer) do
-    arg1_pos = elem(program, instruction_pointer + 1)
-    arg2_pos = elem(program, instruction_pointer + 2)
+  defp execute_instruction(%Opcode{opcode: 2} = opcode, program, input, output, instruction_pointer) do
+    arg1 = read_arg1(program, instruction_pointer, opcode)
+    arg2 = read_arg2(program, instruction_pointer, opcode)
 
     res_pos = elem(program, instruction_pointer + 3)
-    program = put_elem(program, res_pos, elem(program, arg1_pos) * elem(program, arg2_pos))
+    program = put_elem(program, res_pos, arg1 * arg2)
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
@@ -50,11 +50,29 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
-  defp execute_instruction(%Opcode{opcode: 4}, program, input, output, instruction_pointer) do
-    arg_pos = elem(program, instruction_pointer + 1)
-    output = [elem(program, arg_pos) | output]
+  defp execute_instruction(%Opcode{opcode: 4} = opcode, program, input, output, instruction_pointer) do
+    arg1 = read_arg1(program, instruction_pointer, opcode)
+    output = [arg1 | output]
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
   defp execute_instruction(%Opcode{opcode: 99}, _program, _input, _output, _instruction_pointer), do: :halt
+
+  defp read_arg1(program, instruction_pointer, opcode) do
+    if opcode.arg1_mode == 0 do
+      arg_pos = elem(program, instruction_pointer + 1)
+      elem(program, arg_pos)
+    else
+      elem(program, instruction_pointer + 1)
+    end
+  end
+
+  defp read_arg2(program, instruction_pointer, opcode) do
+    if opcode.arg2_mode == 0 do
+      arg_pos = elem(program, instruction_pointer + 2)
+      elem(program, arg_pos)
+    else
+      elem(program, instruction_pointer + 2)
+    end
+  end
 end

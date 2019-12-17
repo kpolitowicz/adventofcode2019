@@ -20,6 +20,6 @@ defmodule IntcodeProgramTest do
     assert {{42,0,4,0,99}, [42]} = IntcodeProgram.run({3,0,4,0,99}, [42])
 
     # param modes
-    assert {{1002,4,3,4,33}, []} = IntcodeProgram.run({1002,4,3,4,33})
+    assert {{1002,4,3,4,99}, []} = IntcodeProgram.run({1002,4,3,4,33})
   end
 end
