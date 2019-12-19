@@ -30,6 +30,7 @@ defmodule IntcodeProgram do
     end
   end
 
+  # arg1 + arg2 -> arg3
   defp execute_instruction(%Opcode{opcode: 1} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -39,6 +40,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
+  # arg1 * arg2 -> arg3
   defp execute_instruction(%Opcode{opcode: 2} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -48,6 +50,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
+  # input -> arg1
   defp execute_instruction(%Opcode{opcode: 3}, program, input, output, instruction_pointer) do
     res_pos = elem(program, instruction_pointer + 1)
 
@@ -56,12 +59,14 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
+  # arg1 -> output
   defp execute_instruction(%Opcode{opcode: 4} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     output = [arg1 | output]
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
+  # if arg1 != 0 -> jump arg2
   defp execute_instruction(%Opcode{opcode: 5} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -75,6 +80,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer}
   end
+  # if arg1 == 0 -> jump arg2
   defp execute_instruction(%Opcode{opcode: 6} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -88,6 +94,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer}
   end
+  # arg1 < arg2 -> arg3 (0 or 1)
   defp execute_instruction(%Opcode{opcode: 7} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -98,6 +105,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
+  # arg1 == arg2 -> arg3 (0 or 1)
   defp execute_instruction(%Opcode{opcode: 8} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
@@ -108,6 +116,7 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 4}
   end
+  # halt program
   defp execute_instruction(%Opcode{opcode: 99}, _program, _input, _output, _instruction_pointer), do: :halt
 
   defp read_arg1(program, instruction_pointer, opcode) do
