@@ -20,8 +20,7 @@ defmodule IntcodeProgramTest do
     assert {{1002,4,3,4,99}, []} = IntcodeProgram.run({1002,4,3,4,33})
   end
 
-  test "computes output" do
-    # new opcodes: 3 and 4
+  test "computes output from input (opcodes 3 and 4)" do
     assert [42] = IntcodeProgram.output({3,0,4,0,99}, [42])
   end
 end
