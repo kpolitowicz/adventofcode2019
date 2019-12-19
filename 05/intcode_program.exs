@@ -62,6 +62,26 @@ defmodule IntcodeProgram do
 
     {:ok, program, input, output, instruction_pointer + 2}
   end
+  defp execute_instruction(%Opcode{opcode: 7} = opcode, program, input, output, instruction_pointer) do
+    arg1 = read_arg1(program, instruction_pointer, opcode)
+    arg2 = read_arg2(program, instruction_pointer, opcode)
+    res = if arg1 < arg2, do: 1, else: 0
+
+    res_pos = elem(program, instruction_pointer + 3)
+    program = put_elem(program, res_pos, res)
+
+    {:ok, program, input, output, instruction_pointer + 4}
+  end
+  defp execute_instruction(%Opcode{opcode: 8} = opcode, program, input, output, instruction_pointer) do
+    arg1 = read_arg1(program, instruction_pointer, opcode)
+    arg2 = read_arg2(program, instruction_pointer, opcode)
+    res = if arg1 == arg2, do: 1, else: 0
+
+    res_pos = elem(program, instruction_pointer + 3)
+    program = put_elem(program, res_pos, res)
+
+    {:ok, program, input, output, instruction_pointer + 4}
+  end
   defp execute_instruction(%Opcode{opcode: 99}, _program, _input, _output, _instruction_pointer), do: :halt
 
   defp read_arg1(program, instruction_pointer, opcode) do
