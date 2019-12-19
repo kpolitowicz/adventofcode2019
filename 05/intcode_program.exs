@@ -66,27 +66,27 @@ defmodule IntcodeProgram do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
 
-    new_instruction_pointer =
+    instruction_pointer =
       if arg1 != 0 do
         arg2
       else
         instruction_pointer + 3
       end
 
-    {:ok, program, input, output, new_instruction_pointer}
+    {:ok, program, input, output, instruction_pointer}
   end
   defp execute_instruction(%Opcode{opcode: 6} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
     arg2 = read_arg2(program, instruction_pointer, opcode)
 
-    new_instruction_pointer =
+    instruction_pointer =
       if arg1 == 0 do
         arg2
       else
         instruction_pointer + 3
       end
 
-    {:ok, program, input, output, new_instruction_pointer}
+    {:ok, program, input, output, instruction_pointer}
   end
   defp execute_instruction(%Opcode{opcode: 7} = opcode, program, input, output, instruction_pointer) do
     arg1 = read_arg1(program, instruction_pointer, opcode)
