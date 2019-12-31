@@ -1,11 +1,11 @@
 package main
 
 // import "fmt"
-// import "strconv"
 import "strings"
 
 type Node struct {
-	name string
+	parent   string
+	children []string
 }
 
 func ConvertInputToList(input string) (res [][]string) {
@@ -15,43 +15,40 @@ func ConvertInputToList(input string) (res [][]string) {
 	return
 }
 
-func BuildTreeFromInput(input string) (res map[string]Node) {
+func BuildTreeFromInput(input [][]string) map[string]Node {
+	tree := make(map[string]Node)
+
+	for _, nodeSpec := range input {
+		node1Name := nodeSpec[0]
+		node2Name := nodeSpec[1]
+
+		tree[node1Name] = makeParentNode(tree, node1Name, node2Name)
+		tree[node2Name] = makeChildNode(tree, node1Name, node2Name)
+	}
+
+	return tree
+}
+
+func makeParentNode(tree map[string]Node, pnodeName string, cnodeName string) (res Node) {
+	node, hasNode := tree[pnodeName]
+	if hasNode {
+		node.children = append(node.children, cnodeName)
+		res = node
+	} else {
+		res = Node{"_root_", []string{cnodeName}}
+	}
+
 	return
 }
 
-// func ListValidPasswordsInRange(from, to int) (res []int) {
-// 	for number := from; number <= to; number++ {
-// 		if CheckPasswordValid(strconv.Itoa(number)) {
-// 			res = append(res, number)
-// 		}
-// 	}
-// 	return
-// }
+func makeChildNode(tree map[string]Node, pnodeName string, cnodeName string) (res Node) {
+	node, hasNode := tree[cnodeName]
+	if hasNode {
+		node.parent = pnodeName
+		res = node
+	} else {
+		res = Node{pnodeName, []string{}}
+	}
 
-// func CheckPasswordValid(password string) bool {
-// 	if len(password) != 6 {
-// 		return false
-// 	}
-
-// 	doubleFound := false
-// 	matchingDigits := 1
-// 	lastChar := byte('0')
-
-// 	for _, char := range password {
-// 		if byte(char) < lastChar {
-// 			return false
-// 		}
-// 		if byte(char) == lastChar {
-// 			matchingDigits++
-// 		}
-// 		if byte(char) > lastChar {
-// 			if matchingDigits == 2 {
-// 				doubleFound = true
-// 			}
-// 			matchingDigits = 1
-// 		}
-// 		lastChar = byte(char)
-// 	}
-
-// 	return doubleFound || matchingDigits == 2
-// }
+	return
+}
