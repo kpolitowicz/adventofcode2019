@@ -1,10 +1,30 @@
 package main
 
 import (
-	// "fmt"
 	"reflect"
 	"testing"
 )
+
+func TestCalculateOrbits(t *testing.T) {
+	input := `COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L`
+
+	got := CalculateOrbits(input)
+	want := 42
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
 
 func TestConvertInputToList(t *testing.T) {
 	input := `COM)B

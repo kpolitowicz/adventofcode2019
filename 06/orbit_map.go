@@ -1,6 +1,5 @@
 package main
 
-// import "fmt"
 import "strings"
 
 type Node struct {
@@ -11,6 +10,12 @@ type Node struct {
 
 func NewNode(parent string, children []string) Node {
 	return Node{parent, children, -1}
+}
+
+func CalculateOrbits(input string) int {
+	tree := BuildTreeFromInput(ConvertInputToList(input))
+
+	return SumOrbits(AssignOrbits(tree))
 }
 
 func ConvertInputToList(input string) (res [][]string) {
