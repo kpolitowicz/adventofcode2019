@@ -35,11 +35,34 @@ func TestBuildTreeFromInput(t *testing.T) {
 
 	got := BuildTreeFromInput(input)
 	want := map[string]Node{
-		"COM": Node{"_root_", []string{"B"}},
-		"B":   Node{"COM", []string{"C", "E"}},
-		"C":   Node{"B", []string{"D"}},
-		"D":   Node{"C", []string{}},
-		"E":   Node{"B", []string{}},
+		"COM": Node{"_root_", []string{"B"}, -1},
+		"B":   Node{"COM", []string{"C", "E"}, -1},
+		"C":   Node{"B", []string{"D"}, -1},
+		"D":   Node{"C", []string{}, -1},
+		"E":   Node{"B", []string{}, -1},
+	}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestAssignOrbits(t *testing.T) {
+	input := map[string]Node{
+		"COM": Node{"_root_", []string{"B"}, -1},
+		"B":   Node{"COM", []string{"C", "E"}, -1},
+		"C":   Node{"B", []string{"D"}, -1},
+		"D":   Node{"C", []string{}, -1},
+		"E":   Node{"B", []string{}, -1},
+	}
+
+	got := AssignOrbits(input)
+	want := map[string]Node{
+		"COM": Node{"_root_", []string{"B"}, 0},
+		"B":   Node{"COM", []string{"C", "E"}, 1},
+		"C":   Node{"B", []string{"D"}, 2},
+		"D":   Node{"C", []string{}, 3},
+		"E":   Node{"B", []string{}, 2},
 	}
 
 	if !reflect.DeepEqual(got, want) {

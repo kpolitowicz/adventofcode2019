@@ -6,6 +6,11 @@ import "strings"
 type Node struct {
 	parent   string
 	children []string
+	orbits   int
+}
+
+func NewNode(parent string, children []string) Node {
+	return Node{parent, children, -1}
 }
 
 func ConvertInputToList(input string) (res [][]string) {
@@ -29,13 +34,40 @@ func BuildTreeFromInput(input [][]string) map[string]Node {
 	return tree
 }
 
+func AssignOrbits(tree map[string]Node) map[string]Node {
+	return assignOrbitsFor(tree, findRootNode(tree), 0)
+}
+
+func findRootNode(tree map[string]Node) string {
+	for name, node := range tree {
+		if node.parent == "_root_" {
+			return name
+		}
+	}
+
+	return ""
+}
+
+func assignOrbitsFor(tree map[string]Node, currentNodeName string, currentLevel int) map[string]Node {
+	node := tree[currentNodeName]
+	node.orbits = currentLevel
+
+	for _, nodeName := range node.children {
+		tree = assignOrbitsFor(tree, nodeName, currentLevel+1)
+	}
+
+	tree[currentNodeName] = node
+
+	return tree
+}
+
 func makeParentNode(tree map[string]Node, pnodeName string, cnodeName string) (res Node) {
 	node, hasNode := tree[pnodeName]
 	if hasNode {
 		node.children = append(node.children, cnodeName)
 		res = node
 	} else {
-		res = Node{"_root_", []string{cnodeName}}
+		res = NewNode("_root_", []string{cnodeName})
 	}
 
 	return
@@ -47,7 +79,7 @@ func makeChildNode(tree map[string]Node, pnodeName string, cnodeName string) (re
 		node.parent = pnodeName
 		res = node
 	} else {
-		res = Node{pnodeName, []string{}}
+		res = NewNode(pnodeName, []string{})
 	}
 
 	return
