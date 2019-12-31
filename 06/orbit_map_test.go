@@ -69,3 +69,20 @@ func TestAssignOrbits(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestSumOrbits(t *testing.T) {
+	input := map[string]Node{
+		"COM": Node{"_root_", []string{"B"}, 0},
+		"B":   Node{"COM", []string{"C", "E"}, 1},
+		"C":   Node{"B", []string{"D"}, 2},
+		"D":   Node{"C", []string{}, 3},
+		"E":   Node{"B", []string{}, 2},
+	}
+
+	got := SumOrbits(input)
+	want := 8
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}

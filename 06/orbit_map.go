@@ -38,6 +38,16 @@ func AssignOrbits(tree map[string]Node) map[string]Node {
 	return assignOrbitsFor(tree, findRootNode(tree), 0)
 }
 
+func SumOrbits(tree map[string]Node) int {
+	res := 0
+
+	for _, node := range tree {
+		res += node.orbits
+	}
+
+	return res
+}
+
 func findRootNode(tree map[string]Node) string {
 	for name, node := range tree {
 		if node.parent == "_root_" {
