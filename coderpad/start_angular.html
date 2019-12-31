@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
+    <script>
+      angular.module('myApp', []).component('helloWorld', {
+        template: 'Hello World!',
+      })
+    </script>
+    <style>
+      body {
+        background-color: #1d2126;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-app="myApp"><hello-world></hello-world></div>
+  </body>
+</html>
+
