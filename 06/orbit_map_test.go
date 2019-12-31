@@ -26,6 +26,29 @@ K)L`
 	}
 }
 
+func TestTotalTransfers(t *testing.T) {
+	input := `COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L
+K)YOU
+I)SAN`
+
+	got := TotalTransfers(input, "YOU", "SAN")
+	want := 4
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestPathToRoot(t *testing.T) {
 	input := `COM)B
 B)C

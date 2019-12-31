@@ -18,6 +18,53 @@ func CalculateOrbits(input string) int {
 	return SumOrbits(AssignOrbits(tree))
 }
 
+func TotalTransfers(input string, startName string, endName string) int {
+	path1 := PathToRoot(input, startName)
+	path2 := PathToRoot(input, endName)
+
+	nonCommon := findNonCommonPoints(path1, path2)
+
+	return len(nonCommon) - 2
+}
+
+func findNonCommonPoints(path1, path2 []string) (res []string) {
+	common := findCommonPoints(path1, path2)
+
+	for _, node := range path1 {
+		if !includes(common, node) {
+			res = append(res, node)
+		}
+	}
+	for _, node := range path2 {
+		if !includes(common, node) {
+			res = append(res, node)
+		}
+	}
+
+	return
+}
+
+func includes(ary []string, elem string) bool {
+	for _, e := range ary {
+		if e == elem {
+			return true
+		}
+	}
+
+	return false
+}
+
+func findCommonPoints(path1, path2 []string) (res []string) {
+	for _, node1 := range path1 {
+		for _, node2 := range path2 {
+			if node1 == node2 {
+				res = append(res, node1)
+			}
+		}
+	}
+	return
+}
+
 func PathToRoot(input string, nodeName string) (res []string) {
 	tree := BuildTreeFromInput(ConvertInputToList(input))
 
