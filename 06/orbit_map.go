@@ -18,6 +18,20 @@ func CalculateOrbits(input string) int {
 	return SumOrbits(AssignOrbits(tree))
 }
 
+func PathToRoot(input string, nodeName string) (res []string) {
+	tree := BuildTreeFromInput(ConvertInputToList(input))
+
+	currentName := nodeName
+	currentNode := tree[nodeName]
+	for currentNode.parent != "_root_" {
+		res = append(res, currentName)
+		currentName = currentNode.parent
+		currentNode = tree[currentName]
+	}
+
+	return append(res, currentName)
+}
+
 func ConvertInputToList(input string) (res [][]string) {
 	for _, line := range strings.Split(input, "\n") {
 		res = append(res, strings.Split(line, ")"))

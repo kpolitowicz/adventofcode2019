@@ -26,6 +26,36 @@ K)L`
 	}
 }
 
+func TestPathToRoot(t *testing.T) {
+	input := `COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L
+K)YOU
+I)SAN`
+
+	got := PathToRoot(input, "SAN")
+	want := []string{
+		"SAN",
+		"I",
+		"D",
+		"C",
+		"B",
+		"COM",
+	}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestConvertInputToList(t *testing.T) {
 	input := `COM)B
 B)C
