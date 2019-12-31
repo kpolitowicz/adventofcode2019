@@ -11,4 +11,5 @@ func main() {
 	cleaned := strings.Trim(string(dat), "\n")
 
 	fmt.Println(CalculateOrbits(cleaned))
+	fmt.Println(TotalTransfers(cleaned, "YOU", "SAN"))
 }
